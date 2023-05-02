@@ -3552,19 +3552,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\q9nh\\.nuget\\packages\\": {}
+    "C:\\Users\\Oleksii\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\q9nh\\Desktop\\Client-Server-Application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
+      "projectUniqueName": "F:\\test project\\UniversityMgmtSystemClientConsuming\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
       "projectName": "UniversityMgmtSystemClientConsuming",
-      "projectPath": "C:\\Users\\q9nh\\Desktop\\Client-Server-Application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
-      "packagesPath": "C:\\Users\\q9nh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\q9nh\\Desktop\\Client-Server-Application\\client-consumption\\UniversityMgmtSystem\\obj\\",
+      "projectPath": "F:\\test project\\UniversityMgmtSystemClientConsuming\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
+      "packagesPath": "C:\\Users\\Oleksii\\.nuget\\packages\\",
+      "outputPath": "F:\\test project\\UniversityMgmtSystemClientConsuming\\UniversityMgmtSystem\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\q9nh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Oleksii\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3632,7 +3632,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }
