@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityMgmtSystem.Data;
 using UniversityMgmtSystem.Data.Static;
-using UniversityMgmtSystem;
-using UniversityMgmtSystem.Models;
 using UniversityMgmtSystemServerApi.Models;
 using UniversityMgmtSystemServerApi.ViewModels;
 using Microsoft.IdentityModel.Tokens;
@@ -11,7 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace UniversityMgmtSystem.Controllers
+namespace UniversityMgmtSystemServerApi.Controllers
 {
 
 	[Route("api/[controller]")]

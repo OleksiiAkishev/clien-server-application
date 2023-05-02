@@ -2,11 +2,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UniversityMgmtSystem.Data;
-using UniversityMgmtSystem.Models;
+using UniversityMgmtSystemServerApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using UniversityMgmtSystem.Models;
+using UniversityMgmtSystemServerApi.Models;
 
-namespace UniversityMgmtSystem.Controllers
+namespace UniversityMgmtSystemServerApi.Controllers
 {
     public class HomeController : Controller
     {

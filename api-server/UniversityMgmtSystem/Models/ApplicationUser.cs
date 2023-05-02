@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace UniversityMgmtSystem.Models
+namespace UniversityMgmtSystemServerApi.Models
 {
 	public class ApplicationUser : IdentityUser
 	{
