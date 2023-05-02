@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "F:\\test project\\UniversityMgmtSystemServerApi\\UniversityMgmtSystem\\UniversityMgmtSystemServerApi.csproj": {}
+    "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\api-server\\UniversityMgmtSystem\\UniversityMgmtSystemServerApi.csproj": {}
   },
   "projects": {
-    "F:\\test project\\UniversityMgmtSystemServerApi\\UniversityMgmtSystem\\UniversityMgmtSystemServerApi.csproj": {
+    "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\api-server\\UniversityMgmtSystem\\UniversityMgmtSystemServerApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\test project\\UniversityMgmtSystemServerApi\\UniversityMgmtSystem\\UniversityMgmtSystemServerApi.csproj",
+        "projectUniqueName": "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\api-server\\UniversityMgmtSystem\\UniversityMgmtSystemServerApi.csproj",
         "projectName": "UniversityMgmtSystemServerApi",
-        "projectPath": "F:\\test project\\UniversityMgmtSystemServerApi\\UniversityMgmtSystem\\UniversityMgmtSystemServerApi.csproj",
-        "packagesPath": "C:\\Users\\Oleksii\\.nuget\\packages\\",
-        "outputPath": "F:\\test project\\UniversityMgmtSystemServerApi\\UniversityMgmtSystem\\obj\\",
+        "projectPath": "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\api-server\\UniversityMgmtSystem\\UniversityMgmtSystemServerApi.csproj",
+        "packagesPath": "C:\\Users\\PF5D\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\api-server\\UniversityMgmtSystem\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Oleksii\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PF5D\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -86,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
