@@ -6,6 +6,10 @@ using UniversityMgmtSystem;
 using UniversityMgmtSystem.Models;
 using UniversityMgmtSystemServerApi.Models;
 using UniversityMgmtSystemServerApi.ViewModels;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace UniversityMgmtSystem.Controllers
 {
@@ -16,7 +20,6 @@ namespace UniversityMgmtSystem.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         //private readonly RoleManager<IdentityUser> _roleManager;
         private readonly AppDbContext _appDbContext;
-		private readonly IConfiguration _configuration;
 
 		public AccountController(UserManager<ApplicationUser> userManager,
             AppDbContext appDbContext, IConfiguration configuration) 
@@ -29,22 +32,55 @@ namespace UniversityMgmtSystem.Controllers
 
         public IConfiguration Configuration { get; }
 
-        /*public IActionResult Login()
+		[HttpPost]
+		[Route("Login")]
+		public async Task<IActionResult> Login([FromBody] LoginModel loginUser)
         {
-            var response = new LoginVM();
-            return View(response);
-        }*/
+			
+			var user = await _userManager.FindByEmailAsync(loginUser.EmailAddress);
+			if (user != null)
+			{
+				var passwordCheck = await _userManager.CheckPasswordAsync(user, loginUser.Password);
+				if (passwordCheck)
+				{
+					var userRoles = await _userManager.GetRolesAsync(user);
+
+					var authClaims = new List<Claim>
+				{
+					new Claim(ClaimTypes.Name, user.UserName),
+					new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+				};
+
+					foreach (var userRole in userRoles)
+					{
+						authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+					}
+
+					var token = GetToken(authClaims);
+
+					return Ok(new
+					{
+						token = new JwtSecurityTokenHandler().WriteToken(token),
+						expiration = token.ValidTo
+					});
+				}
+				return Unauthorized();
+			}
+			return Unauthorized();
+		}
 
 
         [HttpGet]
-        public async Task<IActionResult> GetDummy() 
+		[Route("GetDummy")]
+		public async Task<IActionResult> GetDummy() 
         {
             return Ok("Good result");
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] RegisterVM registerUser) 
+		[Route("Register")]
+		public async Task<IActionResult> Register([FromBody] RegisterVM registerUser) 
         {
             //Check if user exist in the DB
             var userFromDb = await _userManager.FindByEmailAsync(registerUser.Password);
@@ -73,71 +109,19 @@ namespace UniversityMgmtSystem.Controllers
 					new Response { Status = "Error", Message = "User Failed to Create!" });
         }
 
-		/*public async Task<IActionResult> Login(LoginVM loginVM)
-        {
-            if (!ModelState.IsValid) 
-            {
-                return View(loginVM);
-            }
-            var user = await _userManager.FindByEmailAsync(loginVM.EmailAddress);
-            if (user != null) 
-            {
-                var passwordCheck = await _userManager.CheckPasswordAsync(user, loginVM.Password);
-                if (passwordCheck)
-                {
-                    var result = await _signInManager.PasswordSignInAsync(user, loginVM.Password, false, false);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-				TempData["Error"] = "Wrong credentials. Please, try again!";
-				return View(loginVM);
-			}
-            TempData["Error"] = "Wrong credentials. Please, try again!";
-            return View(loginVM);
-        }*/
-
-		/*public IActionResult Register()
+		private JwtSecurityToken GetToken(List<Claim> authClaims)
 		{
-			var response = new RegisterVM();
-			return View(response);
+			var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]));
+
+			var token = new JwtSecurityToken(
+				issuer: Configuration["JWT:ValidIssuer"],
+				audience: Configuration["JWT:ValidAudience"],
+				expires: DateTime.Now.AddHours(3),
+				claims: authClaims,
+				signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+				);
+
+			return token;
 		}
-
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterVM registerVM)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(registerVM);
-            }
-
-            var user = await _userManager.FindByEmailAsync(registerVM.EmailAddress);
-            if (user != null) 
-            {
-				TempData["Error"] = "This email is in use already!";
-                return View(registerVM);
-			}
-            var newUser = new ApplicationUser()
-            {
-                FullName = registerVM.FullName,
-                Email = registerVM.EmailAddress,
-                UserName = registerVM.EmailAddress
-            };
-            var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
-
-            if (newUserResponse.Succeeded) 
-            {
-                await _userManager.AddToRoleAsync(newUser, UserRoles.Student);
-            }
-            return View("RegisterCompleted");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Logout() 
-        {
-            await _signInManager.SignOutAsync(); 
-            return RedirectToAction("Login", "Account");
-        }*/
 	}
 }

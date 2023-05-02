@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UniversityMgmtSystem.Data;
@@ -36,21 +37,21 @@ builder.Services
 				.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 				.AddJwtBearer(options =>
 				{
-					var serverSecret =
-					new SymmetricSecurityKey
-					(Encoding.UTF8.GetBytes
-					(builder.Configuration
-					["JWT:ServerSecret"]));
-					options.TokenValidationParameters = new TokenValidationParameters
+					options.SaveToken = true;
+					options.RequireHttpsMetadata = false;
+					options.TokenValidationParameters = new TokenValidationParameters()
 					{
-						IssuerSigningKey = serverSecret,
-						ValidIssuer = builder.Configuration["JWT:Issuer"],
-						ValidAudience = builder.Configuration["JWT:Audience"]
+						ValidateIssuer = true,
+						ValidateAudience = true,
+						ValidAudience = builder.Configuration["JWT:ValidAudience"],
+						ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+						IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
 					};
 				});
 
-builder.Services.AddAuthentication(options => 
-options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme);
+builder.Services.AddAuthentication(options =>
+options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme
+);
 
 
 var app = builder.Build();
