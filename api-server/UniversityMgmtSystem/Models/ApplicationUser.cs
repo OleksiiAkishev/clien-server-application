@@ -8,9 +8,5 @@ namespace UniversityMgmtSystem.Models
 		[Display(Name = "Full name")]
 		public string FullName { get; set; }
 
-		/*[Required]
-		[DataType(DataType.Password)]
-		public string Password { get; set; }*/
-
 	}
 }
