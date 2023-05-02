@@ -22,33 +22,39 @@ namespace UniversityMgmtSystem.Controllers
 			return View();
 		}
 		[HttpPost]
-		public IActionResult Login(User user)
-		{
-			if (user.Email == null || user.Password == null)
-			{
-				return View("Login");
-			}
-			var request = new HttpRequestMessage(HttpMethod.Post, Configuration.GetValue<string>("WebAPIBaseUrl") + "/Account");
-			var serializedUser = JsonConvert.SerializeObject(user);
-			request.Content = new StringContent(serializedUser);
-			request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-			request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+        public async Task<IActionResult> Login(User user)
+        {
+            // Create an instance of HttpClient
+            using var httpClient = new HttpClient();
 
-			var response = httpClient.Send(request);
-			if (response.IsSuccessStatusCode)
-			{
-				var token = response.Content.ReadAsStringAsync().Result;
-				JWT jwt = JsonConvert.DeserializeObject<JWT>(token);
-				HttpContext.Session.SetString("token", jwt.Token);
-				HttpContext.Session.SetString("UserName", user.Email);
+            // Send a POST request to the API endpoint
+            var response = await httpClient.PostAsJsonAsync("https://localhost:7003/api/Account/Login", user);
 
-				return RedirectToAction("Index", "Home");
-			}
-			ViewBag.Message = "Invalid Username or Password";
-			return View("Login");
-		}
+            // Check if the response is successful
+            if (response.IsSuccessStatusCode)
+            {
+                // Read the response content as JSON and get the token and expiration date
+                var responseContent = await response.Content.ReadFromJsonAsync<Dictionary<string, string>>();
+                var token = responseContent["token"];
+                var expiration = responseContent["expiration"];
 
-		public IActionResult Register()
+                // Store the token and expiration date in a cookie or local storage
+
+
+
+
+                // Redirect to the home page or another page
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                // Display an error message
+                TempData["Error"] = "Invalid email address or password.";
+                return View();
+            }
+        }
+
+        public IActionResult Register()
 		{
 			var response = new RegisterVM();
 			return View(response);
@@ -59,7 +65,7 @@ namespace UniversityMgmtSystem.Controllers
 		{
 			using var httpClient = new HttpClient();
 			var content = new StringContent(JsonConvert.SerializeObject(registerVM), Encoding.UTF8, "application/json");
-			var response = await httpClient.PostAsync("https://localhost:7003/api/Account", content);
+			var response = await httpClient.PostAsync("https://localhost:7003/api/Account/Register", content);
 
 			if (response.StatusCode == HttpStatusCode.Created)
 			{

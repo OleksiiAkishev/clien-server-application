@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "F:\\test project\\UniversityMgmtSystemClientConsuming\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj": {}
+    "C:\\Oleksii\\client-server-application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj": {}
   },
   "projects": {
-    "F:\\test project\\UniversityMgmtSystemClientConsuming\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj": {
+    "C:\\Oleksii\\client-server-application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\test project\\UniversityMgmtSystemClientConsuming\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
+        "projectUniqueName": "C:\\Oleksii\\client-server-application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
         "projectName": "UniversityMgmtSystemClientConsuming",
-        "projectPath": "F:\\test project\\UniversityMgmtSystemClientConsuming\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
-        "packagesPath": "C:\\Users\\Oleksii\\.nuget\\packages\\",
-        "outputPath": "F:\\test project\\UniversityMgmtSystemClientConsuming\\UniversityMgmtSystem\\obj\\",
+        "projectPath": "C:\\Oleksii\\client-server-application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
+        "packagesPath": "C:\\Users\\QLB3\\.nuget\\packages\\",
+        "outputPath": "C:\\Oleksii\\client-server-application\\client-consumption\\UniversityMgmtSystem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Oleksii\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\QLB3\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -82,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
