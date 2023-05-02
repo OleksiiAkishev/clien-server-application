@@ -1,58 +1,52 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using UniversityMgmtSystem.Data;
-using UniversityMgmtSystem.Data.Static;
-using UniversityMgmtSystem.Data.ViewModels;
-using UniversityMgmtSystem.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Net;
+using System.Net.Http.Headers;
+using System.Text;
+using UniversityMgmtSystemClientConsuming.Models;
+using UniversityMgmtSystemClientConsuming.ViewModels;
 
 namespace UniversityMgmtSystem.Controllers
 {
-    public class AccountController : Controller
-    {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly AppDbContext _appDbContext;
-
-        public AccountController(UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            AppDbContext appDbContext) 
-        {
-            _userManager= userManager;
-            _signInManager= signInManager;
-            _appDbContext= appDbContext;
-        }
-
-        public IActionResult Login()
-        {
-            var response = new LoginVM();
-            return View(response);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginVM loginVM)
-        {
-            if (!ModelState.IsValid) 
-            {
-                return View(loginVM);
-            }
-            var user = await _userManager.FindByEmailAsync(loginVM.EmailAddress);
-            if (user != null) 
-            {
-                var passwordCheck = await _userManager.CheckPasswordAsync(user, loginVM.Password);
-                if (passwordCheck)
-                {
-                    var result = await _signInManager.PasswordSignInAsync(user, loginVM.Password, false, false);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-				TempData["Error"] = "Wrong credentials. Please, try again!";
-				return View(loginVM);
+	public class AccountController : Controller
+	{
+		private readonly static HttpClient httpClient = new();
+		public AccountController(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
+		private IConfiguration Configuration { get; }
+		[HttpGet]
+		public IActionResult Login()
+		{
+			return View();
+		}
+		[HttpPost]
+		public IActionResult Login(User user)
+		{
+			if (user.Email == null || user.Password == null)
+			{
+				return View("Login");
 			}
-            TempData["Error"] = "Wrong credentials. Please, try again!";
-            return View(loginVM);
-        }
+			var request = new HttpRequestMessage(HttpMethod.Post, Configuration.GetValue<string>("WebAPIBaseUrl") + "/Account");
+			var serializedUser = JsonConvert.SerializeObject(user);
+			request.Content = new StringContent(serializedUser);
+			request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+			request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+			var response = httpClient.Send(request);
+			if (response.IsSuccessStatusCode)
+			{
+				var token = response.Content.ReadAsStringAsync().Result;
+				JWT jwt = JsonConvert.DeserializeObject<JWT>(token);
+				HttpContext.Session.SetString("token", jwt.Token);
+				HttpContext.Session.SetString("UserName", user.Email);
+
+				return RedirectToAction("Index", "Home");
+			}
+			ViewBag.Message = "Invalid Username or Password";
+			return View("Login");
+		}
 
 		public IActionResult Register()
 		{
@@ -60,34 +54,35 @@ namespace UniversityMgmtSystem.Controllers
 			return View(response);
 		}
 
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterVM registerVM)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(registerVM);
-            }
+		[HttpPost]
+		public async Task<IActionResult> Register(RegisterVM registerVM)
+		{
+			using var httpClient = new HttpClient();
+			var content = new StringContent(JsonConvert.SerializeObject(registerVM), Encoding.UTF8, "application/json");
+			var response = await httpClient.PostAsync("https://localhost:7003/api/Account", content);
 
-            var user = await _userManager.FindByEmailAsync(registerVM.EmailAddress);
-            if (user != null) 
-            {
-				TempData["Error"] = "This email is in use already!";
-                return View(registerVM);
+			if (response.StatusCode == HttpStatusCode.Created)
+			{
+				TempData["Success"] = "Registration was successful! Please log in.";
+				return View("RegisterCompleted");
 			}
-            var newUser = new ApplicationUser()
-            {
-                FullName = registerVM.FullName,
-                Email = registerVM.EmailAddress,
-                UserName = registerVM.EmailAddress
-            };
-            var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
+			else if (response.StatusCode == HttpStatusCode.Forbidden)
+			{
+				TempData["Error"] = "User with these credentials already exist!";
+			}
+			else
+			{
+				TempData["Error"] = "An error occurred while registering the user. Please try again later.";
+			}
 
-            if (newUserResponse.Succeeded) 
-            {
-                await _userManager.AddToRoleAsync(newUser, UserRoles.Student);
-            }
-            return View("RegisterCompleted");
-        }
+			return View(registerVM);
+		}
 
+		/*[HttpPost]
+        public async Task<IActionResult> Logout() 
+        {
+            await _signInManager.SignOutAsync(); 
+            return RedirectToAction("Login", "Account");
+        }*/
 	}
 }
