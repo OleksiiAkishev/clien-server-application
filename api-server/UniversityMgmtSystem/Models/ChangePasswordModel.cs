@@ -2,7 +2,7 @@
 
 namespace UniversityMgmtSystemServerApi.Models
 {
-	public class ChangePasswordVM
+	public class ChangePasswordModel
 	{
 		[Display(Name = "Email address")]
 		[Required(ErrorMessage = "Email address is required")]

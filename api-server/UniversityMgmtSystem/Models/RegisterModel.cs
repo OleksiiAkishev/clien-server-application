@@ -2,7 +2,7 @@
 
 namespace UniversityMgmtSystemServerApi.ViewModels
 {
-    public class RegisterVM
+    public class RegisterModel
     {
 		[Display(Name = "Full name")]
 		[Required(ErrorMessage = "Full name address is required!")]

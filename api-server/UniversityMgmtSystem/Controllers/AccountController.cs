@@ -18,131 +18,84 @@ namespace UniversityMgmtSystem.Controllers
 	public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        //private readonly RoleManager<IdentityUser> _roleManager;
         private readonly AppDbContext _appDbContext;
-		private readonly SignInManager<ApplicationUser> _signInManager;
 
-		public AccountController(UserManager<ApplicationUser> userManager,
-            AppDbContext appDbContext, IConfiguration configuration) 
+        public AccountController(UserManager<ApplicationUser> userManager,
+            AppDbContext appDbContext, IConfiguration configuration)
         {
             _userManager = userManager;
-            //_roleManager = roleManager;
             _appDbContext = appDbContext;
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
-		[HttpPost]
-		[Route("Login")]
-		public async Task<IActionResult> Login([FromBody] LoginModel loginUser)
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginModel loginUser)
         {
-			
-			var user = await _userManager.FindByEmailAsync(loginUser.EmailAddress);
-			if (user != null)
-			{
-				var passwordCheck = await _userManager.CheckPasswordAsync(user, loginUser.Password);
-				if (passwordCheck)
-				{
-					var userRoles = await _userManager.GetRolesAsync(user);
-
-					var authClaims = new List<Claim>
-				{
-					new Claim(ClaimTypes.Name, user.UserName),
-					new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-				};
-
-					foreach (var userRole in userRoles)
-					{
-						authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-					}
-
-					var token = GetToken(authClaims);
-
-					return Ok(new
-					{
-						token = new JwtSecurityTokenHandler().WriteToken(token),
-						expiration = token.ValidTo
-					});
-				}
-				return Unauthorized();
-			}
-			return Unauthorized();
-		}
-
-
-        [HttpGet]
-		[Route("GetDummy")]
-		public async Task<IActionResult> GetDummy() 
-        {
-            return Ok("Good result");
+            var user = await _userManager.FindByEmailAsync(loginUser.Email);
+            if (user != null)
+            {
+                var passwordCheck = await _userManager.CheckPasswordAsync(user, loginUser.Password);
+                if (passwordCheck)
+                {
+                    var userRoles = await _userManager.GetRolesAsync(user);
+                    var authClaims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, user.UserName),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    };
+                    foreach (var userRole in userRoles)
+                    {
+                        authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                    }
+                    var token = GetToken(authClaims);
+                    var identity = new ClaimsIdentity(authenticationType: "JWT");
+                    identity.AddClaims(authClaims);
+                    return Ok(new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        expiration = token.ValidTo
+                    });
+                }
+                return Unauthorized();
+            }
+            return Unauthorized();
         }
 
-
         [HttpPost]
-		[Route("Register")]
-		public async Task<IActionResult> Register([FromBody] RegisterVM registerUser) 
+        [Route("Register")]
+        public async Task<IActionResult> Register([FromBody] RegisterModel registerUser)
         {
             //Check if user exist in the DB
             var userFromDb = await _userManager.FindByEmailAsync(registerUser.Password);
-            if (userFromDb != null) 
+            if (userFromDb != null)
             {
                 return StatusCode(StatusCodes.Status403Forbidden,
                     new Response { Status = "Error", Message = "User with these credentials already exist!" });
             }
-
-			//If not exist, Add a new user to DB
-			var newUser = new ApplicationUser()
-			{
-				FullName = registerUser.FullName,
-				Email = registerUser.Email,
-                //SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = registerUser.Email,
-				EmailConfirmed = true
-
-			};
-
-            var newUserResponse = await _userManager.CreateAsync(newUser, registerUser.Password.Trim());
-			if (newUserResponse.Succeeded)
-			{
-				await _userManager.AddToRoleAsync(newUser, UserRoles.Student);
+            //If not exist, Add a new user to DB
+            var newUser = new ApplicationUser()
+            {
+                FullName = registerUser.FullName,
+                Email = registerUser.Email,
+                UserName = registerUser.Email
+            };
+            var newUserResponse = await _userManager.CreateAsync(newUser, registerUser.Password);
+            if (newUserResponse.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(newUser, UserRoles.Student);
                 return StatusCode(StatusCodes.Status201Created,
                         new Response { Status = "Success", Message = "User was created successfully!" });
-			}
-			return StatusCode(StatusCodes.Status500InternalServerError,
-					new Response { Status = "Error", Message = "User Failed to Create!" });
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                    new Response { Status = "Error", Message = "User Failed to Create!" });
         }
 
-		private JwtSecurityToken GetToken(List<Claim> authClaims)
-		{
-			var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]));
-
-			var token = new JwtSecurityToken(
-				issuer: Configuration["JWT:ValidIssuer"],
-				audience: Configuration["JWT:ValidAudience"],
-				expires: DateTime.Now.AddHours(3),
-				claims: authClaims,
-				signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-				);
-
-			return token;
-		}
-
-		
-		/*[HttpPost]
-		[Route("Logout")]
-		public async Task<IActionResult> Logout()
-		{
-
-
-			_signInManager.SignOutAsync();
-			return Ok();
-		}
-		*/
-		[HttpPost]
+        [HttpPost]
 		[Route("ChangePassword")]
-		public async Task<IActionResult> ChangePassword([FromBody]ChangePasswordVM changePasswordUser)
-
+		public async Task<IActionResult> ChangePassword([FromBody]ChangePasswordModel changePasswordUser)
 		{
 			var checkUser = await _userManager.FindByNameAsync(changePasswordUser.EmailAddress);
 			if(checkUser==null)
@@ -153,7 +106,6 @@ namespace UniversityMgmtSystem.Controllers
 					Message = "UserName not Found"
 				});
 			}
-		
 			ApplicationUser user = new ApplicationUser
 			{
 				UserName = checkUser.UserName,
@@ -166,14 +118,9 @@ namespace UniversityMgmtSystem.Controllers
 					Status = "Error",
 					Message = "CurrentPassword not Found"
 				});
-
 			}
-
-		 var result =  await _userManager.ChangePasswordAsync(user, changePasswordUser.CurrentPassword, changePasswordUser.NewPassword);
-
+		 var result = await _userManager.ChangePasswordAsync(user, changePasswordUser.CurrentPassword, changePasswordUser.NewPassword);
 			if(result.Succeeded) {
-
-
 				return StatusCode(StatusCodes.Status202Accepted, new Response
 				{
 					Status = "Error",
@@ -186,5 +133,20 @@ namespace UniversityMgmtSystem.Controllers
 				Message = "Password not changed"
 			});
 		}
-	}
+
+        private JwtSecurityToken GetToken(List<Claim> authClaims)
+        {
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]));
+
+            var token = new JwtSecurityToken(
+                issuer: Configuration["JWT:ValidIssuer"],
+                audience: Configuration["JWT:ValidAudience"],
+                expires: DateTime.Now.AddHours(3),
+                claims: authClaims,
+                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+                );
+
+            return token;
+        }
+    }
 }
