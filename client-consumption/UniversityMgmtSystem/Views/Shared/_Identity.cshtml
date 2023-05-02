@@ -1,5 +1,8 @@
-﻿            
-@if (User.Identity.IsAuthenticated)
+﻿@{
+    var httpContext = ViewContext.HttpContext;
+}
+
+@if (httpContext.Session.GetString("token") != null)
 {
     <div class="dropdown">
         <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown" aria-expanded="false">
@@ -7,24 +10,24 @@
         </button>
     </div>
     <span style="padding: 5px;"></span>
-    <form asp-controller="Account" asp-action="Logout">
-        <button class="btn btn-outline-danger my-2 my-sm-0">
+    <form asp-controller="Account" asp-action="Logout" method="post">
+        <button id="logout-button" class="btn btn-outline-danger my-2 my-sm-0">
             <i class="bi bi-box-arrow-in-right"></i> Log out
         </button>
     </form>
-} else
+}
+else
 {
-    <div id="log-in-btn"> 
-      <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Account" asp-action="Login">
-        <i class="bi bi-box-arrow-in-right"></i> Log in
-      </a>
+    <div id="log-in-btn">
+        <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Account" asp-action="Login">
+            <i class="bi bi-box-arrow-in-right"></i> Log in
+        </a>
     </div>
     <div id="register-btn">
-      <a class="btn btn-outline-primary my-2 my-sm-0" asp-controller="Account" asp-action="Register">
-        <i class="bi bi-person-plus"></i> Register
-      </a>
+        <a class="btn btn-outline-primary my-2 my-sm-0" asp-controller="Account" asp-action="Register">
+            <i class="bi bi-person-plus"></i> Register
+        </a>
     </div>
-
-}    
+}
 
             
