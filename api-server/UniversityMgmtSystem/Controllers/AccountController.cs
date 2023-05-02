@@ -20,6 +20,7 @@ namespace UniversityMgmtSystem.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         //private readonly RoleManager<IdentityUser> _roleManager;
         private readonly AppDbContext _appDbContext;
+		private readonly SignInManager<ApplicationUser> _signInManager;
 
 		public AccountController(UserManager<ApplicationUser> userManager,
             AppDbContext appDbContext, IConfiguration configuration) 
@@ -96,9 +97,12 @@ namespace UniversityMgmtSystem.Controllers
 				FullName = registerUser.FullName,
 				Email = registerUser.Email,
                 //SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = registerUser.Email
-            };
-            var newUserResponse = await _userManager.CreateAsync(newUser, registerUser.Password);
+                UserName = registerUser.Email,
+				EmailConfirmed = true
+
+			};
+
+            var newUserResponse = await _userManager.CreateAsync(newUser, registerUser.Password.Trim());
 			if (newUserResponse.Succeeded)
 			{
 				await _userManager.AddToRoleAsync(newUser, UserRoles.Student);
@@ -122,6 +126,65 @@ namespace UniversityMgmtSystem.Controllers
 				);
 
 			return token;
+		}
+
+		
+		/*[HttpPost]
+		[Route("Logout")]
+		public async Task<IActionResult> Logout()
+		{
+
+
+			_signInManager.SignOutAsync();
+			return Ok();
+		}
+		*/
+		[HttpPost]
+		[Route("ChangePassword")]
+		public async Task<IActionResult> ChangePassword([FromBody]ChangePasswordVM changePasswordUser)
+
+		{
+			var checkUser = await _userManager.FindByNameAsync(changePasswordUser.EmailAddress);
+			if(checkUser==null)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, new Response
+				{
+					Status = "Error",
+					Message = "UserName not Found"
+				});
+			}
+		
+			ApplicationUser user = new ApplicationUser
+			{
+				UserName = checkUser.UserName,
+				Email = checkUser.Email,
+			};
+			if (!await _userManager.CheckPasswordAsync(user, changePasswordUser.CurrentPassword.Trim()))
+			{
+				return StatusCode(StatusCodes.Status406NotAcceptable, new Response
+				{
+					Status = "Error",
+					Message = "CurrentPassword not Found"
+				});
+
+			}
+
+		 var result =  await _userManager.ChangePasswordAsync(user, changePasswordUser.CurrentPassword, changePasswordUser.NewPassword);
+
+			if(result.Succeeded) {
+
+
+				return StatusCode(StatusCodes.Status202Accepted, new Response
+				{
+					Status = "Error",
+					Message = "Succesfully Changed"
+				});
+			}
+			return StatusCode(StatusCodes.Status406NotAcceptable, new Response
+			{
+				Status = "Error",
+				Message = "Password not changed"
+			});
 		}
 	}
 }
