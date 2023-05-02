@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using UniversityMgmtSystem.Data.Static;
-using UniversityMgmtSystem.Models;
+using UniversityMgmtSystemServerApi.Models;
 
 namespace UniversityMgmtSystem.Data
 {

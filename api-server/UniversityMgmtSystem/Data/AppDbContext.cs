@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using UniversityMgmtSystem.Models;
+using UniversityMgmtSystemServerApi.Models;
 
 namespace UniversityMgmtSystem.Data
 {
