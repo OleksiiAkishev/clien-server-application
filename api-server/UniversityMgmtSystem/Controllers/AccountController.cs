@@ -154,6 +154,7 @@ namespace UniversityMgmtSystem.Controllers
 				});
 			}
 		
+
 			ApplicationUser user = new ApplicationUser
 			{
 				UserName = checkUser.UserName,
@@ -188,3 +189,5 @@ namespace UniversityMgmtSystem.Controllers
 		}
 	}
 }
+
+/*dsfdsfds*/
