@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Oleksii\\mvc-api-mini-project\\clien-server-application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystem.csproj": {}
+    "C:\\Users\\q9nh\\Desktop\\Client-Server-Application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystem.csproj": {}
   },
   "projects": {
-    "C:\\Oleksii\\mvc-api-mini-project\\clien-server-application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystem.csproj": {
+    "C:\\Users\\q9nh\\Desktop\\Client-Server-Application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Oleksii\\mvc-api-mini-project\\clien-server-application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystem.csproj",
+        "projectUniqueName": "C:\\Users\\q9nh\\Desktop\\Client-Server-Application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystem.csproj",
         "projectName": "UniversityMgmtSystem",
-        "projectPath": "C:\\Oleksii\\mvc-api-mini-project\\clien-server-application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystem.csproj",
-        "packagesPath": "C:\\Users\\QLB3\\.nuget\\packages\\",
-        "outputPath": "C:\\Oleksii\\mvc-api-mini-project\\clien-server-application\\client-consumption\\UniversityMgmtSystem\\obj\\",
+        "projectPath": "C:\\Users\\q9nh\\Desktop\\Client-Server-Application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystem.csproj",
+        "packagesPath": "C:\\Users\\q9nh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\q9nh\\Desktop\\Client-Server-Application\\client-consumption\\UniversityMgmtSystem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\QLB3\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\q9nh\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
