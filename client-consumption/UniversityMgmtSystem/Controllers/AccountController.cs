@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net;
@@ -18,87 +20,82 @@ namespace UniversityMgmtSystem.Controllers
 			Configuration = configuration;
 		}
 		private IConfiguration Configuration { get; }
+
 		[HttpGet]
 		public IActionResult Login()
 		{
 			return View();
 		}
-		[HttpPost]
-        public async Task<IActionResult> Login(User user)
+
+        [HttpPost]
+        public IActionResult Login(LoginVM user)
         {
-            // Create an instance of HttpClient
-            using var httpClient = new HttpClient();
+            if (user.Email == null || user.Password == null)
+            {
+                return View("Login");
+            }
+            var request = new HttpRequestMessage(HttpMethod.Post, Configuration.GetValue<string>("BaseAddress") + "/Account/Login");
+            var serializedUser = JsonConvert.SerializeObject(user);
+            request.Content = new StringContent(serializedUser);
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            // Send a POST request to the API endpoint
-            var response = await httpClient.PostAsJsonAsync("https://localhost:7003/api/Account/Login", user);
-
-            // Check if the response is successful
+            var response = httpClient.Send(request);
             if (response.IsSuccessStatusCode)
             {
-                // Read the response content as JSON and get the token and expiration date
-                var responseContent = await response.Content.ReadFromJsonAsync<Dictionary<string, string>>();
-                var token = responseContent["token"];
-                var expiration = responseContent["expiration"];
+                var token = response.Content.ReadAsStringAsync().Result;
+                JWT jwt = JsonConvert.DeserializeObject<JWT>(token);
+                HttpContext.Session.SetString("token", jwt.Token);
+                HttpContext.Session.SetString("Email", user.Email);
 
-                // Store the token and expiration date in a cookie or local storage
-
-
-
-
-                // Redirect to the home page or another page
                 return RedirectToAction("Index", "Home");
             }
-            else
-            {
-                // Display an error message
-                TempData["Error"] = "Invalid email address or password.";
-                return View();
-            }
+            ViewBag.Message = "Invalid Username or Password";
+            return View("Login");
         }
 
         public IActionResult Register()
-		{
-			var response = new RegisterVM();
-			return View(response);
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> Register(RegisterVM registerVM)
-		{
-			using var httpClient = new HttpClient();
-			var content = new StringContent(JsonConvert.SerializeObject(registerVM), Encoding.UTF8, "application/json");
-			var response = await httpClient.PostAsync("https://localhost:7003/api/Account/Register", content);
-
-			if (response.StatusCode == HttpStatusCode.Created)
-			{
-				TempData["Success"] = "Registration was successful! Please log in.";
-				return View("RegisterCompleted");
-			}
-			else if (response.StatusCode == HttpStatusCode.Forbidden)
-			{
-				TempData["Error"] = "User with these credentials already exist!";
-			}
-			else
-			{
-				TempData["Error"] = "An error occurred while registering the user. Please try again later.";
-			}
-
-			return RedirectToAction("Login");
-		}
-
-		/*[HttpPost]
-        public async Task<IActionResult> Logout() 
         {
-            await _signInManager.SignOutAsync(); 
+            var response = new RegisterVM();
+            return View(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterVM registerVM)
+        {
+            string serverAddressApi = "https://localhost:7003/api/Account/Register";
+            var content = new StringContent(JsonConvert.SerializeObject(registerVM), Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(serverAddressApi, content);
+            if (response.StatusCode == HttpStatusCode.Created)
+            {
+                TempData["Success"] = "Registration was successful! Please log in.";
+                return View("RegisterCompleted");
+            }
+            else if (response.StatusCode == HttpStatusCode.Forbidden)
+            {
+                TempData["Error"] = "User with these credentials already exist!";
+            }
+            else
+            {
+                TempData["Error"] = "An error occurred while registering the user. Please try again later.";
+            }
+            return View(registerVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            HttpContext.Session.Clear();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Account");
-        }*/
-		[HttpGet]
+        }
+
+        [HttpGet]
 		public async Task<IActionResult> ChangePassword()
 		{
-
 			return View();
-
 		}
+
 		[HttpPost]
 		public async Task<IActionResult> ChangePassword (ChangePasswordVM changePasswordVM )
 		{
@@ -112,12 +109,11 @@ namespace UniversityMgmtSystem.Controllers
 			var response = await httpClient.PostAsync("https://localhost:7003/api/Account/ChangePassword", content);
 			if(!response.IsSuccessStatusCode)
 			{
-				var statuscode = await response.Content.ReadAsStringAsync();
-				var statusmessgae = JsonConvert.DeserializeObject<ApiStatus>(statuscode);
-			 ViewData["Error"]=	statusmessgae.Message;
+                var statuscode = await response.Content.ReadAsStringAsync();
+                var statusmessgae = JsonConvert.DeserializeObject<ApiStatus>(statuscode);
+                ViewData["Error"]=	statusmessgae.Message;
 				return View();
 			}
-
 			return View("ChangePasswordCompleted");
 		}
 	}
