@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Oleksii\\client-server-application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj": {}
+    "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj": {}
   },
   "projects": {
-    "C:\\Oleksii\\client-server-application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj": {
+    "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Oleksii\\client-server-application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
+        "projectUniqueName": "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
         "projectName": "UniversityMgmtSystemClientConsuming",
-        "projectPath": "C:\\Oleksii\\client-server-application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
-        "packagesPath": "C:\\Users\\QLB3\\.nuget\\packages\\",
-        "outputPath": "C:\\Oleksii\\client-server-application\\client-consumption\\UniversityMgmtSystem\\obj\\",
+        "projectPath": "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
+        "packagesPath": "C:\\Users\\PF5D\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\client-consumption\\UniversityMgmtSystem\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\QLB3\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PF5D\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -57,6 +62,10 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[7.0.5, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.13, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",

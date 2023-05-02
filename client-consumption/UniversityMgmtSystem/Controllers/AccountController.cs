@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using UniversityMgmtSystemClientConsuming.Models;
 using UniversityMgmtSystemClientConsuming.ViewModels;
+using UniversityMgmtSystemServerApi.Models;
 
 namespace UniversityMgmtSystem.Controllers
 {
@@ -81,7 +83,7 @@ namespace UniversityMgmtSystem.Controllers
 				TempData["Error"] = "An error occurred while registering the user. Please try again later.";
 			}
 
-			return View(registerVM);
+			return RedirectToAction("Login");
 		}
 
 		/*[HttpPost]
@@ -90,5 +92,38 @@ namespace UniversityMgmtSystem.Controllers
             await _signInManager.SignOutAsync(); 
             return RedirectToAction("Login", "Account");
         }*/
+		[HttpGet]
+		public async Task<IActionResult> ChangePassword()
+		{
+
+			return View();
+
+		}
+		[HttpPost]
+		public async Task<IActionResult> ChangePassword (ChangePasswordVM changePasswordVM )
+		{
+			if(changePasswordVM.EmailAddress == null)
+			{
+				ViewData["Error"] = "Empty Values";
+				return View();
+			}
+			using var httpClient= new HttpClient();
+			var content = new StringContent(JsonConvert.SerializeObject(changePasswordVM), Encoding.UTF8, "application/json");
+			var response = await httpClient.PostAsync("https://localhost:7003/api/Account/ChangePassword", content);
+			if(!response.IsSuccessStatusCode)
+			{
+				var statuscode = await response.Content.ReadAsStringAsync();
+				var statusmessgae = JsonConvert.DeserializeObject<ApiStatus>(statuscode);
+			 ViewData["Error"]=	statusmessgae.Message;
+				return View();
+			}
+
+			return View("ChangePasswordCompleted");
+		}
 	}
 }
+
+
+//N6n7C$6*Fibe
+//DzCa0^L881$J
+//shailesh@gmail.com
