@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UniversityMgmtSystem.Data.ViewModels
+namespace UniversityMgmtSystemClientConsuming.ViewModels
 {
     public class RegisterVM
     {
@@ -10,7 +10,7 @@ namespace UniversityMgmtSystem.Data.ViewModels
 		public string FullName { get; set; }
 		[Display(Name = "Email address")]
         [Required(ErrorMessage = "Email address is required!")]
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

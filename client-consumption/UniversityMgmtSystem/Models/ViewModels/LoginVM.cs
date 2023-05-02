@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UniversityMgmtSystem.Data.ViewModels
+namespace UniversityMgmtSystemClientConsuming.ViewModels
 {
     public class LoginVM
     {
