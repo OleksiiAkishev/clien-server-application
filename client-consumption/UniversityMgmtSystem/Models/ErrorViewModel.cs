@@ -1,4 +1,4 @@
-namespace UniversityMgmtSystem.Models
+namespace UniversityMgmtSystemClientConsuming.Models
 {
     public class ErrorViewModel
     {

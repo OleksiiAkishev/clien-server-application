@@ -8,9 +8,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using UniversityMgmtSystemClientConsuming.Models;
 using UniversityMgmtSystemClientConsuming.ViewModels;
-using UniversityMgmtSystemServerApi.Models;
 
-namespace UniversityMgmtSystem.Controllers
+namespace UniversityMgmtSystemClientConsuming.Controllers
 {
 	public class AccountController : Controller
 	{

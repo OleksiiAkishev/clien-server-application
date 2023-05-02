@@ -1,4 +1,4 @@
-﻿namespace UniversityMgmtSystemServerApi.Models
+﻿namespace UniversityMgmtSystemClientConsuming.Models
 {
 	public class ApiStatus
 	{
