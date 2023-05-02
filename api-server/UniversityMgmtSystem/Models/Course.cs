@@ -13,7 +13,7 @@ namespace UniversityMgmtSystemServerApi.Models
 
 		public int TeacherId { get; set; }
 		public Teacher? Teacher { get; set; }
-		public string AssigmentFile { get; set; }
+		public string? AssigmentFile { get; set; }
 		public List<StudentCourse>? studentCourses = new List<StudentCourse>();
 
 
