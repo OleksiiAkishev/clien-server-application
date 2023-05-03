@@ -9,10 +9,10 @@ using UniversityMgmtSystem.Data;
 
 #nullable disable
 
-namespace UniversityMgmtSystem.Migrations
+namespace UniversityMgmtSystemServerApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230427120815_InitialCreate")]
+    [Migration("20230503085533_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,6 +24,49 @@ namespace UniversityMgmtSystem.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("ClassRoom", b =>
+                {
+                    b.Property<int>("ClassRoomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClassRoomId"));
+
+                    b.Property<string>("ClassroomName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DayId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ClassRoomId");
+
+                    b.HasIndex("DayId");
+
+                    b.ToTable("ClassRooms");
+                });
+
+            modelBuilder.Entity("Day", b =>
+                {
+                    b.Property<int>("DayId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DayId"));
+
+                    b.Property<int>("DayNum")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TimeTableId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DayId");
+
+                    b.HasIndex("TimeTableId");
+
+                    b.ToTable("Days");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -158,7 +201,50 @@ namespace UniversityMgmtSystem.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("UniversityMgmtSystem.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Slot", b =>
+                {
+                    b.Property<int>("SlotID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SlotID"));
+
+                    b.Property<int>("ClassRoomId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SlotNum")
+                        .HasColumnType("int");
+
+                    b.HasKey("SlotID");
+
+                    b.HasIndex("ClassRoomId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Slots");
+                });
+
+            modelBuilder.Entity("TimeTable", b =>
+                {
+                    b.Property<int>("TimeTableId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TimeTableId"));
+
+                    b.Property<string>("TimeTableName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TimeTableId");
+
+                    b.ToTable("TimeTables");
+                });
+
+            modelBuilder.Entity("UniversityMgmtSystemServerApi.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -227,6 +313,119 @@ namespace UniversityMgmtSystem.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("UniversityMgmtSystemServerApi.Models.Course", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"));
+
+                    b.Property<string>("AssigmentFile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CourseName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumOfClassPerWeek")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumOfSlot")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("UniversityMgmtSystemServerApi.Models.Student", b =>
+                {
+                    b.Property<int>("StudentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"));
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("StudentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StudentId");
+
+                    b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("UniversityMgmtSystemServerApi.Models.StudentCourse", b =>
+                {
+                    b.Property<int>("StudentCourseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentCourseId"));
+
+                    b.Property<int>("CouserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentCourseId");
+
+                    b.HasIndex("CouserId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StudentCourses");
+                });
+
+            modelBuilder.Entity("UniversityMgmtSystemServerApi.Models.Teacher", b =>
+                {
+                    b.Property<int>("TeacherId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeacherId"));
+
+                    b.Property<string>("TeacherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TeacherId");
+
+                    b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("ClassRoom", b =>
+                {
+                    b.HasOne("Day", "Day")
+                        .WithMany("ClassRooms")
+                        .HasForeignKey("DayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Day");
+                });
+
+            modelBuilder.Entity("Day", b =>
+                {
+                    b.HasOne("TimeTable", "TimeTable")
+                        .WithMany("Days")
+                        .HasForeignKey("TimeTableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TimeTable");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -238,7 +437,7 @@ namespace UniversityMgmtSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("UniversityMgmtSystem.Models.ApplicationUser", null)
+                    b.HasOne("UniversityMgmtSystemServerApi.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -247,7 +446,7 @@ namespace UniversityMgmtSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("UniversityMgmtSystem.Models.ApplicationUser", null)
+                    b.HasOne("UniversityMgmtSystemServerApi.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -262,7 +461,7 @@ namespace UniversityMgmtSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("UniversityMgmtSystem.Models.ApplicationUser", null)
+                    b.HasOne("UniversityMgmtSystemServerApi.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -271,11 +470,80 @@ namespace UniversityMgmtSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("UniversityMgmtSystem.Models.ApplicationUser", null)
+                    b.HasOne("UniversityMgmtSystemServerApi.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Slot", b =>
+                {
+                    b.HasOne("ClassRoom", "ClassRoom")
+                        .WithMany("Slots")
+                        .HasForeignKey("ClassRoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UniversityMgmtSystemServerApi.Models.Course", "Courses")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ClassRoom");
+
+                    b.Navigation("Courses");
+                });
+
+            modelBuilder.Entity("UniversityMgmtSystemServerApi.Models.Course", b =>
+                {
+                    b.HasOne("UniversityMgmtSystemServerApi.Models.Teacher", "Teacher")
+                        .WithMany("Courses")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("UniversityMgmtSystemServerApi.Models.StudentCourse", b =>
+                {
+                    b.HasOne("UniversityMgmtSystemServerApi.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CouserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UniversityMgmtSystemServerApi.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("ClassRoom", b =>
+                {
+                    b.Navigation("Slots");
+                });
+
+            modelBuilder.Entity("Day", b =>
+                {
+                    b.Navigation("ClassRooms");
+                });
+
+            modelBuilder.Entity("TimeTable", b =>
+                {
+                    b.Navigation("Days");
+                });
+
+            modelBuilder.Entity("UniversityMgmtSystemServerApi.Models.Teacher", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }
