@@ -7,6 +7,6 @@ namespace UniversityMgmtSystemServerApi.Models
 	{
 		[Display(Name = "Full name")]
 		public string FullName { get; set; }
-
-	}
+        
+    }
 }

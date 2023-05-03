@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "tKlzywEgZRVevJZBoWoYKjUhmdKoEelbL5d29ZhAt9kgY4PLEbC23i//hx2P8ZZn2bk0JOG62lKQQeZUJYDQbQ==",
+  "dgSpecHash": "aFW2Yua+N6u0yPaXy7L/JjmbS9xlAWBJYhmX36jHDtahEz+52oyH7DBfYOotE7VSnKwTOaE9zHcwtshezLoXJw==",
   "success": true,
-  "projectFilePath": "C:\\Oleksii\\Client_Server_App_Versions\\v2.02.05.2023(Add MSUnit)\\unit-tests\\UnitTestUniversityMgmtSystem.csproj",
+  "projectFilePath": "C:\\Oleksii\\Client_Server_App_Versions\\v3.03.05.2023\\unit-tests\\UnitTestUniversityMgmtSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\QLB3\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\QLB3\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
@@ -76,6 +77,7 @@
     "C:\\Users\\QLB3\\.nuget\\packages\\microsoft.visualstudio.web.codegenerators.mvc\\6.0.13\\microsoft.visualstudio.web.codegenerators.mvc.6.0.13.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\QLB3\\.nuget\\packages\\moq\\4.18.4\\moq.4.18.4.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\nuget.common\\6.3.1\\nuget.common.6.3.1.nupkg.sha512",
@@ -118,6 +120,7 @@
     "C:\\Users\\QLB3\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.0\\system.configuration.configurationmanager.6.0.0.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.0\\system.diagnostics.diagnosticsource.5.0.0.nupkg.sha512",
+    "C:\\Users\\QLB3\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\system.diagnostics.tools\\4.3.0\\system.diagnostics.tools.4.3.0.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\system.diagnostics.tracing\\4.3.0\\system.diagnostics.tracing.4.3.0.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
@@ -173,7 +176,11 @@
     "C:\\Users\\QLB3\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\system.threading.tasks.dataflow\\6.0.0\\system.threading.tasks.dataflow.6.0.0.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\QLB3\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+    "C:\\Users\\QLB3\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\QLB3\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
+    "C:\\Users\\QLB3\\.nuget\\packages\\xunit.analyzers\\1.1.0\\xunit.analyzers.1.1.0.nupkg.sha512",
+    "C:\\Users\\QLB3\\.nuget\\packages\\xunit.extensibility.core\\2.4.2\\xunit.extensibility.core.2.4.2.nupkg.sha512",
+    "C:\\Users\\QLB3\\.nuget\\packages\\xunit.runner.visualstudio\\2.4.5\\xunit.runner.visualstudio.2.4.5.nupkg.sha512"
   ],
   "logs": []
 }

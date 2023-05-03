@@ -104,12 +104,7 @@ namespace UniversityMgmtSystemServerApi.Controllers
 					Message = "UserName not Found"
 				});
 			}
-			ApplicationUser user = new ApplicationUser
-			{
-				UserName = checkUser.UserName,
-				Email = checkUser.Email,
-			};
-			if (!await _userManager.CheckPasswordAsync(user, changePasswordUser.CurrentPassword.Trim()))
+            if (!await _userManager.CheckPasswordAsync(checkUser, changePasswordUser.CurrentPassword.Trim()))
 			{
 				return StatusCode(StatusCodes.Status406NotAcceptable, new Response
 				{
@@ -117,7 +112,7 @@ namespace UniversityMgmtSystemServerApi.Controllers
 					Message = "CurrentPassword not Found"
 				});
 			}
-		 var result = await _userManager.ChangePasswordAsync(user, changePasswordUser.CurrentPassword, changePasswordUser.NewPassword);
+		 var result = await _userManager.ChangePasswordAsync(checkUser, changePasswordUser.CurrentPassword, changePasswordUser.NewPassword);
 			if(result.Succeeded) {
 				return StatusCode(StatusCodes.Status202Accepted, new Response
 				{

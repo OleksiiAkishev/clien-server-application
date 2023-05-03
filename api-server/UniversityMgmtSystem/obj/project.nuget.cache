@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "W54zaJ2d8m4dPAP17m/KbS7Xd/sRJbodxB12B+53BXAKKvZBXP6/dLEBt8nDOSmuMdw1IereQDjaPOunIc2dHA==",
+  "dgSpecHash": "mVigUjefOL9etAJpt+wLE3BRfDOZYSQKutyFFHkItImkW425NpYsbn/F2ZCgcZP2qbSqNOAfMy+bn2v31g6s4Q==",
   "success": true,
-  "projectFilePath": "C:\\Oleksii\\Client_Server_App_Versions\\v2.02.05.2023(Add MSUnit)\\api-server\\UniversityMgmtSystem\\UniversityMgmtSystemServerApi.csproj",
+  "projectFilePath": "C:\\Oleksii\\Client_Server_App_Versions\\v3.03.05.2023\\api-server\\UniversityMgmtSystem\\UniversityMgmtSystemServerApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\QLB3\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
