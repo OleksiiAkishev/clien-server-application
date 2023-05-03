@@ -11,8 +11,16 @@ namespace UniversityMgmtSystemServerApi.Models
 		public string StudentName { get; set; }
 		
 		public DateTime? DateOfBirth { get; set; }
+        public string Address { get; set; }
 
-		public List<StudentCourse>? studentCourses = new List<StudentCourse>(); 
+        public int ContactNo { get; set; }
 
-	}
+        public int? DepartmentId { get; set; }
+        public Department? Department { get; set; }
+
+
+        public List<StudentCourse> StudentCourses = new List<StudentCourse>();
+        public List<Course> Courses { get; } = new();
+
+    }
 }
