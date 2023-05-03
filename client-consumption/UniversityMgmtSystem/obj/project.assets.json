@@ -10512,19 +10512,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\q9nh\\.nuget\\packages\\": {}
+    "C:\\Users\\QLB3\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\q9nh\\Desktop\\New folder (3)\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
+      "projectUniqueName": "C:\\Users\\QLB3\\Source\\Repos\\clien-server-application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
       "projectName": "UniversityMgmtSystemClientConsuming",
-      "projectPath": "C:\\Users\\q9nh\\Desktop\\New folder (3)\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
-      "packagesPath": "C:\\Users\\q9nh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\q9nh\\Desktop\\New folder (3)\\client-consumption\\UniversityMgmtSystem\\obj\\",
+      "projectPath": "C:\\Users\\QLB3\\Source\\Repos\\clien-server-application\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
+      "packagesPath": "C:\\Users\\QLB3\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\QLB3\\Source\\Repos\\clien-server-application\\client-consumption\\UniversityMgmtSystem\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\q9nh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\QLB3\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
