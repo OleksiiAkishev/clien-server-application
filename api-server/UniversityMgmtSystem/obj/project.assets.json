@@ -4113,11 +4113,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Oleksii\\Client_Server_App_Versions\\v2.02.05.2023(Add MSUnit)\\api-server\\UniversityMgmtSystem\\UniversityMgmtSystemServerApi.csproj",
+      "projectUniqueName": "C:\\Oleksii\\Client_Server_App_Versions\\v3.03.05.2023\\api-server\\UniversityMgmtSystem\\UniversityMgmtSystemServerApi.csproj",
       "projectName": "UniversityMgmtSystemServerApi",
-      "projectPath": "C:\\Oleksii\\Client_Server_App_Versions\\v2.02.05.2023(Add MSUnit)\\api-server\\UniversityMgmtSystem\\UniversityMgmtSystemServerApi.csproj",
+      "projectPath": "C:\\Oleksii\\Client_Server_App_Versions\\v3.03.05.2023\\api-server\\UniversityMgmtSystem\\UniversityMgmtSystemServerApi.csproj",
       "packagesPath": "C:\\Users\\QLB3\\.nuget\\packages\\",
-      "outputPath": "C:\\Oleksii\\Client_Server_App_Versions\\v2.02.05.2023(Add MSUnit)\\api-server\\UniversityMgmtSystem\\obj\\",
+      "outputPath": "C:\\Oleksii\\Client_Server_App_Versions\\v3.03.05.2023\\api-server\\UniversityMgmtSystem\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\QLB3\\AppData\\Roaming\\NuGet\\NuGet.Config",

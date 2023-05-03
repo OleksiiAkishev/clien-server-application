@@ -13,12 +13,14 @@ namespace UniversityMgmtSystemClientConsuming.Controllers
 {
 	public class AccountController : Controller
 	{
-		private readonly static HttpClient httpClient = new();
-		public AccountController(IConfiguration configuration)
+        public AccountController(IConfiguration configuration, IHttpClientFactory httpClientFactory)
 		{
 			Configuration = configuration;
+            HttpClientFactory = httpClientFactory;
 		}
 		private IConfiguration Configuration { get; }
+
+        private IHttpClientFactory HttpClientFactory { get; }
 
 		[HttpGet]
 		public IActionResult Login()
@@ -33,13 +35,18 @@ namespace UniversityMgmtSystemClientConsuming.Controllers
             {
                 return View("Login");
             }
+            using var httpClient = HttpClientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Post, Configuration.GetValue<string>("BaseAddress") + "/Account/Login");
             var serializedUser = JsonConvert.SerializeObject(user);
             request.Content = new StringContent(serializedUser);
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
+
+            
             var response = httpClient.Send(request);
+
+
             if (response.IsSuccessStatusCode)
             {
                 var token = response.Content.ReadAsStringAsync().Result;
@@ -64,21 +71,25 @@ namespace UniversityMgmtSystemClientConsuming.Controllers
         {
             string serverAddressApi = "https://localhost:7003/api/Account/Register";
             var content = new StringContent(JsonConvert.SerializeObject(registerVM), Encoding.UTF8, "application/json");
+
+            using var httpClient = HttpClientFactory.CreateClient();
+
             var response = await httpClient.PostAsync(serverAddressApi, content);
+
             if (response.StatusCode == HttpStatusCode.Created)
             {
-                TempData["Success"] = "Registration was successful! Please log in.";
+                ViewData["Success"] = "Registration was successful! Please log in.";
                 return View("RegisterCompleted");
             }
             else if (response.StatusCode == HttpStatusCode.Forbidden)
             {
-                TempData["Error"] = "User with these credentials already exist!";
+                ViewData["Error"] = "User with these credentials already exist!";
             }
             else
             {
-                TempData["Error"] = "An error occurred while registering the user. Please try again later.";
+                ViewData["Error"] = "An error occurred while registering the user. Please try again later.";
             }
-            return View(registerVM);
+            return View("Register", registerVM);
         }
 
         [HttpPost]

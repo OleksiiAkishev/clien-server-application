@@ -8,8 +8,10 @@ namespace UniversityMgmtSystemClientConsuming.ViewModels
 		[Required(ErrorMessage = "Full name address is required!")]
 
 		public string FullName { get; set; }
-		[Display(Name = "Email address")]
-        [Required(ErrorMessage = "Email address is required!")]
+
+        [Required]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
+        [RegularExpression(@"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$", ErrorMessage = "Invalid pattern.")]
         public string Email { get; set; }
 
         [Required]
