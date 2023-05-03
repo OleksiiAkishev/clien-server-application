@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj": {}
+    "C:\\Users\\q9nh\\Desktop\\New folder (3)\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj": {
+    "C:\\Users\\q9nh\\Desktop\\New folder (3)\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
+        "projectUniqueName": "C:\\Users\\q9nh\\Desktop\\New folder (3)\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
         "projectName": "UniversityMgmtSystemClientConsuming",
-        "projectPath": "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
-        "packagesPath": "C:\\Users\\PF5D\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PF5D\\Desktop\\MiniProjectAPI\\client-consumption\\UniversityMgmtSystem\\obj\\",
+        "projectPath": "C:\\Users\\q9nh\\Desktop\\New folder (3)\\client-consumption\\UniversityMgmtSystem\\UniversityMgmtSystemClientConsuming.csproj",
+        "packagesPath": "C:\\Users\\q9nh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\q9nh\\Desktop\\New folder (3)\\client-consumption\\UniversityMgmtSystem\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\PF5D\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\q9nh\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

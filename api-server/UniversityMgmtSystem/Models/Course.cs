@@ -16,11 +16,12 @@ namespace UniversityMgmtSystemServerApi.Models
 		public string? AssigmentFile { get; set; }
 		public List<StudentCourse>? studentCourses = new List<StudentCourse>();
 
+        public List<Student> Students { get; } = new();
+
+        public int DepartmentId { get; set; }
+        public Department? Department { get; set; }
 
 
 
-
-
-
-	}
+    }
 }

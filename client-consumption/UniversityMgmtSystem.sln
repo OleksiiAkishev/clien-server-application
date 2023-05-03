@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversityMgmtSystemClientC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversityMgmtSystemServerApi", "..\api-server\UniversityMgmtSystem\UniversityMgmtSystemServerApi.csproj", "{C1FA3D2C-C0BD-4ED7-A99D-E4F6C4DD72D7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestUniversityMgmtSystem", "..\..\v2.02.05.2023(Add MSUnit)\unit-tests\UnitTestUniversityMgmtSystem.csproj", "{F69614F5-F17C-4B9D-8A99-0DC5E05A03FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTestClientConsuming", "..\xunit\XUnitTestClientConsuming\XUnitTestClientConsuming.csproj", "{979641BB-6444-4032-9619-36C0A2F924CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{C1FA3D2C-C0BD-4ED7-A99D-E4F6C4DD72D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1FA3D2C-C0BD-4ED7-A99D-E4F6C4DD72D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1FA3D2C-C0BD-4ED7-A99D-E4F6C4DD72D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F69614F5-F17C-4B9D-8A99-0DC5E05A03FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F69614F5-F17C-4B9D-8A99-0DC5E05A03FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F69614F5-F17C-4B9D-8A99-0DC5E05A03FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F69614F5-F17C-4B9D-8A99-0DC5E05A03FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{979641BB-6444-4032-9619-36C0A2F924CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{979641BB-6444-4032-9619-36C0A2F924CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{979641BB-6444-4032-9619-36C0A2F924CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{979641BB-6444-4032-9619-36C0A2F924CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

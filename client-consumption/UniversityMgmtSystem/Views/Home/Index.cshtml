@@ -1,8 +1,82 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+        .sidebar {
+            height: 85.5%;
+            width: 200px;
+            position: fixed;
+            z-index: 1;
+            top: 80px;
+            left: 0;
+            background-color: black;
+            overflow-x: hidden;
+            padding-top: 16px;
+        }
+
+            .sidebar a {
+                padding: 6px 8px 6px 16px;
+                text-decoration: none;
+                font-size: 20px;
+                color: #818181;
+                display: block;
+            }
+
+                .sidebar a:hover {
+                    color: #f1f1f1;
+                }
+
+        .main {
+            margin-left: 160px; /* Same as the width of the sidenav */
+            padding: 0px 10px;
+        }
+
+        (max-height: 450px) {
+            .sidebar
+
+        {
+            padding-top: 15px;
+        }
+
+        .sidebar a {
+            font-size: 18px;
+        }
+
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div>
+            <a href="Students/List"><i class="fa fa-fw fa-home"></i> Students</a>
+            <div class="list-group" id="list-tab" role="tablist">
+                <a href="Enrollment/Enroll" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Enrollment</a>
+                <a id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
+                <a id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
+                <a id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+            </div>
+        </div>
+
+        <a href="Students/List"><i class="fa fa-fw fa-wrench"></i> Teachers</a>
+        <a href="Students/List"><i class="fa fa-fw fa-user"></i> Courses</a>
+        <a href="Students/List"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+
+    </div>
+
+    <div class="main">
+        <h2>Sidebar with Icons</h2>
+        <p>This side navigation is of full height (100%) and always shown.</p>
+        <p>Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+    </div>
+
+</body>
+</html> 
