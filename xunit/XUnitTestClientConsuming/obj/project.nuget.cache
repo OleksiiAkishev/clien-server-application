@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YULwDR+IsjM6Rpe9L6cbnOchUgg5Zch6ed3uNTh+suQ9l2H4yKgGalGJGHBcp1y6NALcujLs0l9yEfPaQa6HXg==",
+  "dgSpecHash": "JQKB5kXtkod3frECNzsCctyYA/dWEAuONcdpIti0N38eBiIxi6SpVRHjijZjZFOW9CxI62YAuB/SBYOJDQxHxA==",
   "success": true,
-  "projectFilePath": "C:\\Oleksii\\Client_Server_App_Versions\\v3.03.05.2023\\xunit\\XUnitTestClientConsuming\\XUnitTestClientConsuming.csproj",
+  "projectFilePath": "C:\\Oleksii\\Client_Server_App_Versions\\v4.03.05.2023\\xunit\\XUnitTestClientConsuming\\XUnitTestClientConsuming.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\QLB3\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\QLB3\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
