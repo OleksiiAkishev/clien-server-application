@@ -130,7 +130,7 @@ namespace UniversityMgmtSystemServerApi.Controllers
 
 		[HttpPost]
 		[Route("UpdateCourse")]
-		public async Task<IActionResult> UpdateCourse(Course course)
+		public async Task<IActionResult> UpdateCourse([FromBody] Course course)
 		{
 			var editCourse = await _db.Courses.Where(c => c.CourseId == course.CourseId).FirstOrDefaultAsync();
 			editCourse.CourseName = course.CourseName.Trim();
@@ -201,7 +201,7 @@ namespace UniversityMgmtSystemServerApi.Controllers
 				else if (dayCounter > 5)
 				{
 
-
+					 
 					return StatusCode(StatusCodes.Status416RequestedRangeNotSatisfiable,
 						new Response
 						{
@@ -224,17 +224,18 @@ namespace UniversityMgmtSystemServerApi.Controllers
 
 		[HttpGet]
 		[Route("GetCourseById/{id}")]
-		public async Task<Course> GetCourseById(int id)
+		public async Task<Course> GetCourseById([FromBody]int id)
 		{
 			Course course = _db.Courses.FirstOrDefault(c => c.CourseId == id);
 
 
 			return course;
+
 		}
 
 		[HttpDelete]
 		[Route("DeleteCourse/{id}")]
-		public async Task<IActionResult> DeleteCourse(int id)
+		public async Task<IActionResult> DeleteCourse([FromBody] int id)
 		{
 			var deleteCourse = await _db.Courses.Where(c => c.CourseId == id).FirstOrDefaultAsync();
 			if(deleteCourse == null) {
