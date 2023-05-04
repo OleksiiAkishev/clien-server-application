@@ -1,0 +1,54 @@
+﻿@model List<Course>
+
+
+<div class="container">
+	<div class="row">
+		<a>create</a>
+	</div>
+
+	<table class="table table-striped">
+		<thead>
+
+			<tr>
+				<th>
+					Id
+				</th>
+				<th>
+					CourseName
+				</th>
+				<th>
+					Teacher Id
+				</th>
+				<th>
+					Enroll
+				</th>
+
+			</tr>
+
+
+
+		</thead>
+
+
+		<tbody>
+			@foreach (Course course in Model)
+
+			{
+
+				<tr>
+
+					<td>@course.CourseId</td>
+					<td>@course.CourseName</td>
+					<td>@course.TeacherId</td>
+					<td>@Html.ActionLink("Enroll","EnrollCourse", new {id= course.CourseId})</td>
+			
+
+				</tr>
+			}
+
+		</tbody>
+
+
+	</table>
+
+</div>
