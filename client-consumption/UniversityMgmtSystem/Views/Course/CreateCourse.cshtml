@@ -1,0 +1,49 @@
+﻿@model Course
+<div class="Container">
+
+	<div class="text-danger"> 
+
+	<p class="text-danger">@ViewData["Error"]</p>
+	</div>
+	<form asp-action="CreateCourse"  method="post">
+
+		<fieldset>
+
+
+			<div class="form-group">
+
+				<label>Course Name</label>
+				<input type="text" asp-for="CourseName" />
+
+			</div>
+
+			<div class="form-group">
+
+				<label>Num of Slots In Day</label>
+				<input type="number" asp-for="NumOfSlot" />
+
+			</div>
+
+			<div class="form-group">
+
+				<label>Num of Classes in Weeks</label>
+				<input type="number" asp-for="NumOfClassPerWeek" />
+
+			</div>
+			<div class="form-group">
+
+				<label>TeacherId</label>
+				<input asp-for="TeacherId" type="number"/>
+
+			</div>
+
+			<button type="submit" class="btn btn-success" > Create </button>
+
+		</fieldset>
+
+	</form>
+
+
+
+
+</div>

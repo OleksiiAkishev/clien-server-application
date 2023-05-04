@@ -1,0 +1,48 @@
+﻿@model Course
+
+<div class="Container">
+
+	<div class="text-danger">
+
+		<p class="text-danger">@ViewData["Error"]</p>
+	</div>
+
+<form asp-action="DeleteCourse">
+	<fieldset>
+		<div class="form-group">
+			<label>
+				Id
+			</label>
+			<input class="form-control" asp-for="CourseId" disabled />
+		</div>
+		<div class="form-group">
+			<label>
+				Name
+			</label>
+			<input class="form-control" asp-for="CourseName" disabled />
+		</div>
+		<div class="form-group">
+			<label>
+				Number of Slot
+			</label>
+			<input class="form-control" asp-for="NumOfSlot" disabled />
+		</div>
+		<div class="form-group">
+			<label>
+				Number of classes in Week
+			</label>
+			<input class="form-control" asp-for="NumOfClassPerWeek" disabled />
+		</div>
+
+		<div class="form-group">
+			<label>
+				Teacher Id
+			</label>
+			<input class="form-control" asp-for="TeacherId" disabled/>
+		</div>
+
+		<button type="submit" class="btn btn-danger">Delete</button>
+
+
+	</fieldset>
+</form>

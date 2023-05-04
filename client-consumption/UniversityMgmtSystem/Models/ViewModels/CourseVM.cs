@@ -7,6 +7,7 @@
 
 		public DateTime CousreTime { get; set; }
 		public string Teacher { get; set; }
+		public bool IsAvailable { get; set; }
 
 
 
