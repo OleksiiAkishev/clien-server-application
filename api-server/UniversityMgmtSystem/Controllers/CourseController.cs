@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Eventing.Reader;
 using UniversityMgmtSystem.Data;
 using UniversityMgmtSystemServerApi.Models;
 
@@ -30,11 +31,10 @@ namespace UniversityMgmtSystemServerApi.Controllers
 
 		[HttpPost]
 		[Route("CreateCourse")]
-		public async Task<IActionResult> CreateCourse(Course course)
+		public async Task<IActionResult> CreateCourse([FromBody]Course course)
 		{
 
-			if (ModelState.IsValid)
-			{
+			
 
 
 				if (course.NumOfClassPerWeek > 3 || course.NumOfSlot > 3)
@@ -48,16 +48,19 @@ namespace UniversityMgmtSystemServerApi.Controllers
 				}
 				await _db.Courses.AddAsync(course);
 				await _db.SaveChangesAsync();
-				while (i < course.NumOfClassPerWeek && ClassroomCounter < 2 && slotnum < 6)
+				while (i <= course.NumOfClassPerWeek )
 				{
 
 					Day days = await _db.Days.Where(day => day.DayNum == dayCounter).FirstOrDefaultAsync();
 					days.ClassRooms = await _db.ClassRooms.Where(classroom => classroom.DayId == days.DayId).ToListAsync();
 					classRoomLength = days.ClassRooms.Count();
 					int classroomId = days.ClassRooms[ClassroomCounter].ClassRoomId;
-					Course createdCourse = await _db.Courses.Where(cou => cou.CourseName == course.CourseName).FirstOrDefaultAsync();
+				    slotnum= _db.Slots.Where(s=>s.ClassRoomId == classroomId).Count()+1;
+					Course createdCourse = await _db.Courses.Where(cou => cou.CourseName == course.CourseName)
+					.FirstOrDefaultAsync();
 
-					if (await _db.Slots.Where(s => s.SlotNum == slotnum && s.ClassRoomId == classroomId).FirstOrDefaultAsync() == null)
+					if (await _db.Slots.Where(s => s.SlotNum == slotnum && s.ClassRoomId == classroomId)
+					.FirstOrDefaultAsync() == null)
 					{
 						for (int j = 0; j < course.NumOfSlot; j++)
 						{
@@ -65,59 +68,62 @@ namespace UniversityMgmtSystemServerApi.Controllers
 							if (slotnum > 5)
 							{
 								i--;
-								slotnum--;
+							    dayCounter--;
+							    course.NumOfSlot= course.NumOfSlot - j;
 								ClassroomCounter++;
 								break;
 							}
+						   
 							Slot slot = new Slot()
 							{
-								SlotNum = slotnum + j,
+								SlotNum = slotnum,
 								CourseId = createdCourse.CourseId,
-								ClassRoomId = days.ClassRooms[0].ClassRoomId
+								ClassRoomId = classroomId
 							};
 
+								
 							await _db.Slots.AddAsync(slot);
 							await _db.SaveChangesAsync();
+						    slotnum++;
+						    ClassroomCounter = 0;
 
 
 						};
-						i++;
-						slotnum++;
-						dayCounter = i;
-					}
+					i++;
+					dayCounter++;
+				}
+				   else
+				   {
+					slotnum++;
+				   }
+				  
+						if (ClassroomCounter >= classRoomLength)
+						{
+								dayCounter++;
+								ClassroomCounter=0;
 
-					if (ClassroomCounter >= classRoomLength)
-					{
-						dayCounter++;
-
-					}
-					else if (dayCounter > 5)
-					{
+						}
+						else if (dayCounter > 5)
+						{
 						
 
-						return StatusCode(StatusCodes.Status416RequestedRangeNotSatisfiable,
-							new Response
-							{
-								Status="Error",
-								Message= "Create more ClassRooms"
-							});
+							return StatusCode(StatusCodes.Status416RequestedRangeNotSatisfiable,
+								new Response
+								{
+									Status="Error",
+									Message= "Create more ClassRooms"
+								});
 
-					}
+						}
 
+				
+				
 
-
-
-				}
+			    }
+				
 
 				return StatusCode(StatusCodes.Status200OK);
-			}
-
-			return StatusCode(StatusCodes.Status406NotAcceptable,
-				new Response { 
-				
-				Status="Eroor",
-				Message="Invliad Input format"
-				});
+	
 
 		}
 	
@@ -137,16 +143,19 @@ namespace UniversityMgmtSystemServerApi.Controllers
 
 			}	
 		  await	_db.SaveChangesAsync();
-			while (i < course.NumOfClassPerWeek && ClassroomCounter < 2 && slotnum < 6)
+			while (i <= course.NumOfClassPerWeek)
 			{
 
 				Day days = await _db.Days.Where(day => day.DayNum == dayCounter).FirstOrDefaultAsync();
 				days.ClassRooms = await _db.ClassRooms.Where(classroom => classroom.DayId == days.DayId).ToListAsync();
 				classRoomLength = days.ClassRooms.Count();
 				int classroomId = days.ClassRooms[ClassroomCounter].ClassRoomId;
-				Course createdCourse = await _db.Courses.Where(cou => cou.CourseName == course.CourseName).FirstOrDefaultAsync();
+				slotnum = _db.Slots.Where(s => s.ClassRoomId == classroomId).Count() + 1;
+				Course createdCourse = await _db.Courses.Where(cou => cou.CourseName == course.CourseName)
+				.FirstOrDefaultAsync();
 
-				if ( await _db.Slots.Where(s => s.SlotNum == slotnum && s.ClassRoomId == classroomId).FirstOrDefaultAsync() == null)
+				if (await _db.Slots.Where(s => s.SlotNum == slotnum && s.ClassRoomId == classroomId)
+				.FirstOrDefaultAsync() == null)
 				{
 					for (int j = 0; j < course.NumOfSlot; j++)
 					{
@@ -154,40 +163,51 @@ namespace UniversityMgmtSystemServerApi.Controllers
 						if (slotnum > 5)
 						{
 							i--;
-							slotnum--;
+							dayCounter--;
+							course.NumOfSlot = course.NumOfSlot - j;
 							ClassroomCounter++;
 							break;
 						}
+
 						Slot slot = new Slot()
 						{
-							SlotNum = slotnum + j,
+							SlotNum = slotnum,
 							CourseId = createdCourse.CourseId,
-							ClassRoomId = days.ClassRooms[0].ClassRoomId
+							ClassRoomId = classroomId
 						};
 
-					  await	_db.Slots.AddAsync(slot);
-					  await	 _db.SaveChangesAsync();
+
+						await _db.Slots.AddAsync(slot);
+						await _db.SaveChangesAsync();
+						slotnum++;
+						ClassroomCounter = 0;
 
 
 					};
 					i++;
+					dayCounter++;
+				}
+				else
+				{
 					slotnum++;
-					dayCounter = i;
 				}
 
 				if (ClassroomCounter >= classRoomLength)
 				{
 					dayCounter++;
+					ClassroomCounter = 0;
 
 				}
 				else if (dayCounter > 5)
 				{
+
+
 					return StatusCode(StatusCodes.Status416RequestedRangeNotSatisfiable,
-							new Response
-							{
-								Status = "Error",
-								Message = "Create more ClassRooms"
-							});
+						new Response
+						{
+							Status = "Error",
+							Message = "Create more ClassRooms"
+						});
 
 				}
 
@@ -195,6 +215,7 @@ namespace UniversityMgmtSystemServerApi.Controllers
 
 
 			}
+
 
 			return StatusCode(StatusCodes.Status200OK);
 
